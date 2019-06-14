@@ -1,0 +1,5 @@
+1.添加依赖
+<dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+</dependency>
