@@ -39,7 +39,6 @@ public class ProcessPoolService {
         //如果池中的线程数＝maximumPoolSize，则有空闲线程使用空闲线程，否则新任务放入workQueue。（线程的空闲只有在workQueue中不再有任务时才成立）
 
 
-
         ThreadPoolExecutor poolExecutor = new ThreadPoolExecutor(2, 5, 200, TimeUnit.MILLISECONDS,
                 //new ArrayBlockingQueue<Runnable>(5)
                 new LinkedBlockingQueue<>(5));
@@ -63,6 +62,20 @@ public class ProcessPoolService {
         poolExecutor.shutdown(); //关闭线程池,将线程池中的空闲线程回收
     }
 
+    //建议使用以下方法创建线程池
+    //实现线程池的其他四种不同的功能(使用Executors静态调用生成方法，其实就是ThreadPoolExecutorEntity里面配好了某种参数)
+    public void OtherThreadPoolExecutor(){
+        //1.创建固定容量大小的缓冲池（队列使用LinkedBlockingQueue无界队列）
+        ExecutorService newFixedThreadPool =  Executors.newFixedThreadPool(2);
+
+        //2.创建只有一个线程的线程池(单线程池，队列使用LinkedBlockingQueue无界队列)
+        ExecutorService newSingleThreadExecutor =  Executors.newSingleThreadExecutor();
+
+        //3.创建一个不限线程数上限的线程池，任何提交的任务都将立即执行（队列使用SynchronousQueue同步队列)
+        // 试图缓存线程并且重用,无缓存线程时，将会新建哦你工作线程
+        ExecutorService newCachedThreadPool = Executors.newCachedThreadPool();
+
+    }
 
     public class ThreadPoolExecutorEntity implements Runnable{
         private  int threadNum;

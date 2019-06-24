@@ -35,6 +35,7 @@ public class DemoController {
     @RequestMapping("/")
     public String Home(){
 
+
         Integer test1 = new Integer(1);
         Integer test2 = new Integer(1);
         System.out.println(test1.equals(test2));
@@ -61,18 +62,14 @@ public class DemoController {
 //        processService.NotifyAndNotifyAll();
         //processService.SynchronizedTest();
 
-        processPoolService.ThreadPoolExecutor();
+        //processPoolService.ThreadPoolExecutor();
+
+        //enumService.GetDay();
+
+        //staticClassService.ExecStaticMethod();
         return "This is Spring Boot";
     }
 
-    @RequestMapping("/Getday")
-    public String Getday(){
-        return enumService.GetDay();
-    }
 
-    @RequestMapping("/StaticClass")
-    public void StaticClassService(){
-        staticClassService.ExecStaticMethod();
-    }
 
 }

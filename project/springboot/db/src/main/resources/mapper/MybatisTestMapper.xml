@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--指定哪个对应的Mapper接口方法,很重要!!-->
+<mapper namespace="com.springboot.db.mybatis.mapper.MybatisTestMapper">
+
+    <!--这里定义共同的SQL语句，可以在下面的配置中重用，以后如果有修改的话，只需要修改一次就可以了 -->
+    <sql id="Base_Column_List">
+        id, name, create_time as createTime, create_user as createUser, update_time as updateTime, update_user as updateUser, is_delete as isDelete
+	</sql>
+
+    <!--id为执行的方法名称 resultType为查询返回类型-->
+    <select id="getTestData" resultType="com.springboot.db.entity.MybatisEntity">
+        select
+        <include refid="Base_Column_List"/>
+        from test
+    </select>
+
+</mapper>
