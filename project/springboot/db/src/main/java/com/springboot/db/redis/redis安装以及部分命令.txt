@@ -44,7 +44,7 @@ linux安装redis 完整步骤
 
 9.添加redis访问密码(redis.conf中安全访问为yes时)
     vi /redis/etc/redis.conf //添加一行   requirepass "密码"    ,之后重启redis
-    ./redis/bin/redis-cli -h 192.168.111.128 -p 6379 -a mm88872773   //添加密码后，登陆前端服务器需要输入，地址，端口和密码
+    ./redis/bin/redis-cli -h 192.168.111.128 -p 6379 -a mm88872773   //添加密码后，登陆前端服务器需要输入，地址，端口和密码(注意目录地址要在redis外执行)
 
 
 常用命令　　

@@ -1,4 +1,4 @@
-package com.springboot.demo.Service;
+package com.springboot.demo.service;
 
 import org.springframework.stereotype.Service;
 
@@ -44,16 +44,21 @@ public class StaticClassService {
             }.show();
         }
     }
+
     //情况1:
     class Test05{
+       private String name;
        static String id = StaticClass.id2;
         static class StaticClass{//静态类!
-           static String id2 = Test05.id; //静态内部类只能访问外部类的静态成员！！！！
+           static String id2 = Test05.id;
+           //String name1 = Test05.name;  //静态内部类只能访问外部类的静态成员！！！！
             static void show() {//静态类中的静态方法!
                 System.out.println("静态内部类,静态方法!");
             }
         }
-    }//情况2:
+    }
+
+    //情况2:
     class Test06{
         String id = new StaticClass().id2;
         class StaticClass{//非静态类
@@ -62,7 +67,9 @@ public class StaticClassService {
                 System.out.println("非静态内部类,非静态方法!");
             }
         }
-    }//情况3:
+    }
+
+    //情况3:
     class Test07{
     static class StaticClass{//静态类!
           void show() {//静态类中的非静态方法!
@@ -84,5 +91,10 @@ public class StaticClassService {
 //        }
 //    }
 //}
+
+
+//区别总结：
+//1.静态内部类可以有静态成员(方法，属性)，而非静态内部类则不能有静态成员(方法，属性)。
+//2.静态内部类只能够访问外部类的静态成员,而非静态内部类则可以访问外部类的所有成员(方法，属性)。
 
 

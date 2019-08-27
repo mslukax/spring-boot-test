@@ -1,6 +1,7 @@
 package com.springboot.db.entity;
 
 import lombok.Data;
+import org.springframework.context.annotation.Bean;
 
 @Data //lombok免get和set
 public class MybatisEntity {
@@ -11,4 +12,5 @@ public class MybatisEntity {
     private String updateTime;
     private String updateUser;
     private Integer isDelete;
+
 }

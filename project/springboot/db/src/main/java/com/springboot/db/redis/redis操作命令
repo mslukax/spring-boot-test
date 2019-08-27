@@ -1,0 +1,126 @@
+1.keys *
+遍历获取所有 key-value 中key名称
+
+2.dbsize
+计算key的总数，返回一个数字
+
+3.exists key
+检查key是否存在，返回数字0，则不存在
+
+4.del key
+删除制定key-value
+
+5.expire key seconds
+设置key在seconds秒后过期，值会变成null
+
+6.ttl key
+查看key剩余的过期时间
+
+7.persist key
+去掉key的过期时间
+
+8.type key
+返回key的类型，包括：string,hash,list,set,zset,none
+
+10.incr key(用于计数器)
+key自增1，如果key不存在，则1开始
+
+11.decr key
+key自减1，如果key不存在，则-1开始
+
+12.incrby key k
+key自增k，如果key不存在，则k开始
+
+13.decr key k
+key自减k，如果key不存在，则-k开始
+
+14.set key value
+不管key是否存在，都设置value值
+
+15.setnx key value（多用于redis分布式）
+key不存在，才设置
+
+16.set key value xx (注意这里xx是关键字不能改)
+key存在，才设置
+
+17.mget key1 key2 key3
+批量获取key，原子操作，(mget命令操作多个key只会对服务器进行一次请求,建议使用)
+
+18.mset key1 value1 key2 value2
+批量设置多个key的value值，(mset命令操作多个key只会对服务器进行一次请求,建议使用)
+
+19.getset key newvalue
+set key newvalue并返回旧的value
+
+20.append key value
+将value追加到旧的value
+
+21.strlen key
+返回字符串的长度（注意中文）
+
+22.hget key field  (哈希表操作)
+获取hash key对应的field的value
+
+23.hset key field value(哈希表操作)
+设置hash key对应的field的value
+
+24.hdel key field(哈希表操作)
+删除hash key对应的field的value
+
+25.hexists key field(哈希表操作)
+判断hash key是否有field
+
+26.hlen key(哈希表操作)
+获取hash key field的数量
+
+27.hmget key field1 field1(哈希表操作)
+批量获取hash key的一批field对应值
+
+28.hmset key field1 value1 field2 value2(哈希表操作)
+批量设置hash key的一批field value
+
+29.hgetall key(哈希表操作)
+返回hash key对应所有的field和value，
+
+30.hvals key(哈希表操作)
+返回hash key对应所有field的value
+
+31.hkeys key(哈希表操作)
+返回hash key对应所有field
+
+
+32.所有数据清除
+flushall
+
+
+
+集合操作zset：可用于排行榜，或排序系统
+33.zadd key score element
+添加有序集合key，以及他的score(分数)和element(元素)，可同时添加多对
+
+34.zrem key element
+删除有序集合key，中的element元素，可同时删除多个
+
+35.zscore key element
+返回元素的分数
+
+36.zincrby key increScore element
+增加有序集合key中element(元素)的分数, increScore为增加的分数(increScore可为负数)
+
+37.zcard key
+返回结合元素总个数
+
+38.zrange key start end withscores
+返回制定索引方位的升序元素(start:开始索引，end:结束索引)，注意索引从0开始
+
+39.zrangebyscore key minscore maxscore withscores
+返回制定分数范围内的升序元素
+
+40.zcount key minscore maxscore
+返回有序集合内制定分数范围内的个数
+
+41.zremrangebyrank key start end
+删除指定排名内的升序元素
+
+42.zremrangebyrank key minscore maxscore
+删除指定分数内的升序元素

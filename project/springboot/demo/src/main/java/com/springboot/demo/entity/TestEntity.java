@@ -1,8 +1,7 @@
-package com.springboot.demo.Entity;
+package com.springboot.demo.entity;
 
 
 import java.util.Comparator;
-import java.util.Objects;
 
 public class TestEntity implements Comparator<TestEntity>,Comparable<TestEntity> {
     private String id;

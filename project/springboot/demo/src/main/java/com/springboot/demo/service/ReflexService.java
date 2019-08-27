@@ -1,4 +1,4 @@
-package com.springboot.demo.Service;
+package com.springboot.demo.service;
 
 import com.springboot.demo.Interface.ReflexBaseImp;
 import com.springboot.demo.Interface.impl.ReflexClassA;
@@ -17,6 +17,12 @@ public class ReflexService {
     public void ExecuteReflex(String classParam){
         try {
             ReflexClassA f = new ReflexClassA();
+
+            Class a1 = Class.forName("");
+            ReflexBaseImp a2 = (ReflexBaseImp) a1.newInstance();
+            a1.getMethod("").invoke(a2);
+
+
             // 第一种表达方式
             Class c1 = ReflexClassA.class;// 这种表达方式同时也告诉了我们任何一个类都有一个隐含的静态成员变量class
             // 第二种表达方式

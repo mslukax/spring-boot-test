@@ -1,10 +1,8 @@
-package com.springboot.demo.Service;
+package com.springboot.demo.service;
 
 import org.springframework.stereotype.Service;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.concurrent.*;
 
 @Service
@@ -437,7 +435,7 @@ public class ProcessService extends Thread {
         //thread10.start();  //同步,结果Count按顺序执行
 
         //4.静态方法加锁(类锁)
-        //注意:因为静态方法是属于类的,同一个类只会有一个锁,被多个线程调用就会阻塞(使用Synchronized(类.class)也一样)
+        //注意:因为静态方法是属于类的,同一个类只会有一个锁(静态类是不需要new的),被多个线程调用就会阻塞(使用Synchronized(类.class)也一样)
         MySynchronized4 mySynchronized4 = new MySynchronized4();
         Thread thread11 = new Thread(mySynchronized4);
         Thread thread12 = new Thread(mySynchronized4);
@@ -550,6 +548,17 @@ public class ProcessService extends Thread {
     //Monitor:每个java对象自身都带的一把锁(各种属性存储,例如锁池线程数多少,当前对象是什么,等待时间等)，可以查看pictrue/Monitor中,锁的竞争，获取和释放
     //运行加锁的代码,jvm会添加两个指令monitorenter和monitorexit 或者acc_synchronized,持有Monitor锁的线程运行,其他线程等待
 
+    //java Native代码中Monitor对象属性
+    //Owner：初始时为NULL表示当前没有任何线程拥有该monitor record，当线程成功拥有该锁后保存线程唯一标识，当锁被释放时又设置为NULL；
+    //EntryQ:关联一个系统互斥锁（semaphore），阻塞所有试图锁住monitor record失败的线程。
+    //RcThis:表示blocked或waiting在该monitor record上的所有线程的个数。
+    //Nest:用来实现重入锁的计数。
+    //HashCode:保存从对象头拷贝过来的HashCode值（可能还包含GC age）。
+    //Candidate:用来避免不必要的阻塞或等待线程唤醒，因为每一次只有一个线程能够成功拥有锁，
+    //如果每次前一个释放锁的线程唤醒所有正在阻塞或等待的线程，会引起不必要的上下文切换（从阻塞到就绪然后因为竞争锁失败又被阻塞）从而导致性能严重下降。
+    //Candidate只有两种可能的值0表示没有需要唤醒的线程1表示要唤醒一个继任线程来竞争锁。
+
+
     //锁重入,在锁中继续添加锁,是可以执行的
 //    synchronized (this){
 //        System.out.println("A");
@@ -558,13 +567,15 @@ public class ProcessService extends Thread {
 //        }
 //    }
 
-    //自旋锁
+    //自旋锁(用于其他被占用锁资源的线程)
     //许多情况下,共享数据的锁定状态持续时间较短,切换线程不值得
     //通过让线程执行忙循环等待锁的释放,不让出cpu（缺点,开销大,特别是锁占用时间长的线程）
+    //简单说就是，线程加锁后，不停循环地去判断锁资源释放已经释放
 
     //自适应自旋锁
-    //由前一次在同一个所锁上的自选时间以及所得拥有者的状态来决定,
+    //由前一次在同一个锁上的自选时间以及所得拥有者的状态来决定,
     //也就是说jvm通过识别上一个锁的获取容易度来判断另一个线程等待要自旋的次数(循环，并且控制循环次数)
+
 
     //锁状态(四种：无锁，偏向锁，轻量级锁，重量级锁)
     //

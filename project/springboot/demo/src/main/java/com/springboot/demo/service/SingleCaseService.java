@@ -1,4 +1,4 @@
-package com.springboot.demo.Service;
+package com.springboot.demo.service;
 
 import org.springframework.stereotype.Service;
 
@@ -19,7 +19,7 @@ public class SingleCaseService {
 
     //懒汉单例模式(程序调用时才生产对象,建议使用)
     private static SingleCaseService singlecase2 = null;
-    public static SingleCaseService getSinglecase2() {
+        public static SingleCaseService getSinglecase2() {
         if(null==singlecase2) {
             singlecase2 = new SingleCaseService();
         }

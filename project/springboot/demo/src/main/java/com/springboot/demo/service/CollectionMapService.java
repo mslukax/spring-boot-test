@@ -1,6 +1,6 @@
-package com.springboot.demo.Service;
+package com.springboot.demo.service;
 
-import com.springboot.demo.Entity.TestEntity;
+import com.springboot.demo.entity.TestEntity;
 import org.springframework.stereotype.Service;
 import java.util.*;
 
@@ -110,10 +110,14 @@ public class CollectionMapService {
         //删除
         map.remove(2); //删除单个
 
-
         //获取所有values对象数组
         map.values();
         ArrayList<TestEntity> getList = new ArrayList<>(map.values()); //map中的value转ArrayList对象
         return map;
     }
 }
+
+//Map集合概念
+
+//1.HashMap概念以及工作原理
+//HashMap由数组(默认16个数组)+链表+红黑树(链表太多时候使用)组成，非同步(线程不安全)
