@@ -56,11 +56,31 @@ public class MybatisService {
 
 //    详细流程如下：
 //            1、加载mybatis全局配置文件（数据源、mapper映射文件等），解析配置文件，MyBatis基于XML配置文件生成Configuration，和一个个MappedStatement（包括了参数映射配置、动态SQL语句、结果映射配置），其对应着<select | update | delete | insert>标签项。
-//            2、SqlSessionFactoryBuilder通过Configuration对象生成SqlSessionFactory，用来开启SqlSession。
-//            3、SqlSession对象完成和数据库的交互：
+////            2、SqlSessionFactoryBuilder通过Configuration对象生成SqlSessionFactory，用来开启SqlSession。
+////            3、SqlSession对象完成和数据库的交互：
 //    a、用户程序调用mybatis接口层api（即Mapper接口中的方法）
 //    b、SqlSession通过调用api的Statement ID找到对应的MappedStatement对象
 //    c、通过Executor（负责动态SQL的生成和查询缓存的维护）将MappedStatement对象进行解析，sql参数转化、动态sql拼接，生成jdbc Statement对象
 //    d、JDBC执行sql。
 //    e、借助MappedStatement中的结果映射关系，将返回结果转化成HashMap、JavaBean等存储结构并返回。
+
+    //MyBatis缓存
+    //MyBatis执行SQL语句之后(查询)，这条语句就是被缓存，以后再执行这条语句的时候，会直接从缓存中拿结果，而不是再次执行SQL。
+    //这也就是大家常说的MyBatis一级缓存，一级缓存的作用域scope是SqlSession。
+    //MyBatis同时还提供了一种全局作用域global scope的缓存，这也叫做二级缓存，也称作全局缓存。
+
+    //如何判断是两次相同的查询
+    //mybatis认为，对于两次查询，如果以下条件都完全一样，那么就认为它们是完全相同的两次查询。
+    //1.传入的statementId
+    //2.查询时要求的结果集中的结果范围
+    //3.这次查询所产生的最终要传递给JDBC java.sql.Preparedstatement的Sql语句字符串（boundSql.getSql() ）
+
+    //注意：如果MyBatis执行了查询sql1，再进行任何增删改操作后，缓存都会被清空，查询sql1会再次访问数据库。
+
+    //mybatis xml符号：写sql(<,>,',"),这类符号需要转义
+    //&lt;   <
+    //&gt;   >
+    //&amp;  &
+    //&apos;  '
+    //&quot;  ""
 }

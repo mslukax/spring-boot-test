@@ -94,6 +94,10 @@ redis服务器持久化建议：
 其原理是哨兵通过发送命令，等待Redis服务器响应，从而监控运行的多个Redis实例。
 Sentinel 可以通过 API 向管理员或者其他应用程序发送通知(应该是自己在代码中写入)。
 
+哨兵模式工作任务:
+a、监控(Monitoring): 哨兵(sentinel) 会不断地检查你的Master和Slave是否运作正常(每秒钟都发送ping)。
+b、提醒(Notification):当被监控的某个 Redis出现问题时, 哨兵(sentinel) 可以通过 API 向管理员或者其他应用程序发送通知。
+c、自动故障迁移(Automatic failover):当一个Master不能正常工作时，哨兵(sentinel) 会开始一次自动故障迁移操作,它会将失效Master的其中一个Slave升级为新的Master, 并让失效Master的其他Slave改为复制新的Master; 当客户端试图连接失效的Master时,集群也会向客户端返回新Master的地址,使得集群可以使用Master代替失效Master。
 
 7.Redis Cluster(高可用，高扩展，高性能)
 Redis Cluster是一个去中心化的分布式实现方案，客户端和集群中任一节点连接，然后通过后面的交互流程，逐渐的得到全局的数据分片映射关系。

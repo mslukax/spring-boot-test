@@ -117,7 +117,46 @@ public class CollectionMapService {
     }
 }
 
+//list跟set集合区别
+//list实现了ArrayList,LinkedList可以重复并且有序，线程不安全；set实现了treeset，hashset，不可重复无序，线程不安全。
+
+//ArrayList概念
+//工作原理：(非线程安全，没有使用锁)
+//ArrayList添加或者删除数据时,根据数据的长度，生成一个新的数组，并且赋值，从而实现动态数组。(因为数组一new出来是无法添加长度)
+
 //Map集合概念
 
 //1.HashMap概念以及工作原理
 //HashMap由数组(默认16个数组)+链表+红黑树(链表太多时候使用)组成，非同步(线程不安全)
+//注意(重点理解！！！)：
+//1.这里的数组是指一个哈希散列表，一个table[index](index=hash(key)，对key使用hash算法算出值)，里面包含了Entry<k,v>就是数组的值(bucket是装Entry<k,v>数组的地方)。
+//2.当HashMap产生Hash碰撞，即是put一个Entry<k,v>,key可能不一样，但是算出来的index与HashMap中的元素重复了，这时，会在该table[index]中生成一个链表
+//并且原来Entry<k,v>中会有一个next指针，指向新的Entry<k,v>。这样一个table[index]或者bucket，会有2个Entry<k,v>。
+
+
+//HashMap:put方法逻辑
+//(1)如果HashMap未被初始化，则初始化(resize()初始化生成新HashMap)。
+//(2)使用put的Entry<k,v>中的key求hash值，然后计算数组下标table[index](index=hash(key))，如果不存在table[index]就newNode一个。
+//(3)如果没有碰撞，直接放入bucket中。
+//(4)如果碰撞了，以链表的方式连接到Entry<k,v>后面(自带指针)。
+//(5)如果链表长度超过阈值(8),就会把链表转成红黑树。
+//(6)如果链表长度低于6,就把红黑树转回链表。
+//(7)如果节点key已经存在，就替换旧值Entry<k,y>。
+//(8)如果散列表容量满了(定义的数组容量,默认容量16*负载因子0.75),就resize(扩容2倍后重排)。
+
+//HashMap:get方法逻辑
+//(1)通过key求hash值，找到对应的table[index] bucket,键对象的equals()方法找到正确的Entry<k,v>。
+//(2)如果对应bucket是一个链表，则先获取第一个对象的key进行比较，然后通过对象.next获取下一个。
+
+//HashMap：扩容过程(resize())
+//1.判断数组容量是否大于散列表容量比例(例如，默认容量16*负载因子0.75)
+//2.如果是大于则，重新生成数组，容量为以前的2倍(如果是16，则新数组为32)，并且根据key重新计算每个table的index。
+//非常消耗内存
+
+//如何减少碰撞
+//使用final对象：final对象是无法改变的，防止因key-value改变而导致的哈希值修改碰撞。
+
+//HashMap, HashTable,CurrentHaspMap区别
+//HashTable,线程安全，因为每个方法都添加了synchronized，内部结构是数组+链表，其他都跟HashMap一致。
+//HashMap，线程不安全，内部结构是数组+链表+红黑树。
+//CurrentHaspMap,线程安全，Cas+同步锁，数组+链表+红黑树。(进行读写元素操作时候，会对数组里面的对象添加同步锁)

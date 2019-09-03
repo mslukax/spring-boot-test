@@ -3,7 +3,6 @@ package com.springboot.demo.service;
 public class SpringService {
 
     //IOC控制反转,代码实现
-
     public  SpringService() {
         //非控制反转写法
         int size = 1000;
@@ -46,6 +45,9 @@ public class SpringService {
             this.size = size;
         }
     }
+
+
+
 
 }
 

@@ -1,9 +1,15 @@
 package com.springboot.demo.controller;
 
+import com.springboot.demo.datacalc.MySort;
+import com.springboot.demo.entity.TestEntity;
 import com.springboot.demo.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 
@@ -27,9 +33,16 @@ public class DemoController {
     @Autowired
     ProcessPoolService processPoolService;
 
+    @Autowired
+    MySort mySort;
 
     @RequestMapping("/")
     public String Home(){
+
+        Map<Integer, TestEntity> map = new HashMap<>(); //无序
+        map.put(1, new TestEntity("id1","name1"));
+        map.put(1, new TestEntity("id2","name2"));
+
 
         //Integer与int比较
         //注意Integer之间比较最好用equals，才能比较content值
